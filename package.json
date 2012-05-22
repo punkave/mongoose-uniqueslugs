@@ -13,11 +13,10 @@
 
   "main": "index",
 
-  "version": "0.1", 
+  "version": "0.0.2", 
 
   "dependencies": {
-    "mongodb": "2.5.10",
-    "connect": "1.8.5"
+    "mongoose": "2.5.10"
   },
 
   "repository" :
