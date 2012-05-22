@@ -1,0 +1,40 @@
+{ 
+  "name": "mongoose-uniqueslugs", 
+
+  "description": "Enhances models to automatically make duplicate slugs unique on save operations", 
+
+  "maintainers":
+  [ 
+    { 
+      "name": "Thomas Boutell", 
+      "web": "https://github.com/boutell"
+    }
+  ], 
+
+  "main": "index",
+
+  "version": "0.1", 
+
+  "dependencies": {
+    "mongodb": "2.5.10",
+    "connect": "1.8.5"
+  },
+
+  "repository" :
+  { 
+    "type" : "git", 
+    "url" : "http://github.com/punkave/mongoose-uniqueslugs.git"
+  }, 
+
+  "bugs" : { 
+    "web" : "http://github.com/punkave/mongoose-uniqueslugs/issues" 
+  }, 
+
+  "licenses" :
+    [ 
+      { 
+        "type" : "MIT", 
+        "url" : "http://github.com/powmedia/mongoose-uniqueslugs/raw/master/LICENSE"
+      }
+    ]
+}
