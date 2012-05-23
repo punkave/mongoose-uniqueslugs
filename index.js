@@ -70,6 +70,10 @@ exports.enhanceModel = function(model)
         if ((err.code === 11000) && (err.err.indexOf('slug') !== -1))
         {
           self.slug += (Math.floor(Math.random() * 10)).toString();
+          // Necessary because otherwise Mongoose doesn't allow us to retry save(),
+          // at least until https://github.com/punkave/mongoose/commit/ea37acc8bd216abec68033fe9e667afa5fd9764c
+          // is in the mainstream release
+          self.isNew = true;
           self.save(extendSlugOnUniqueIndexError);
           return;
         }
