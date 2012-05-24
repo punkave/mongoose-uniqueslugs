@@ -6,12 +6,6 @@ has a unique index on a 'slug' field so that if a unique index error occurs on '
 the slug and the save operation is retried until it works. This is concurrency-safe even if you have lots of inserts 
 going on from multiple machines, etc. 
 
-You must have at least Mongoose 2.5.10 because of this fix:
-
-https://github.com/LearnBoost/mongoose/pull/837
-
-This has been officially accepted - a fresh npm install or npm update should have it - but it's quite recent.
-
 Here's how to use it. It differs from other plugins because we must modify the model object to add a save() 
 wrapper that gets first crack at errors.
 
