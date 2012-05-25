@@ -13,19 +13,19 @@ wrapper that gets first crack at errors.
 
 2. Require the unique slug plugin
 
-    var mongooseUniqueSlugs = require('mongooseUniqueSlugs');
+      var mongooseUniqueSlugs = require('mongooseUniqueSlugs');
 
 3. Enhance the schema
 
-    mongooseUniqueSlugs.enhanceSchema(mediaItemSchema);
+      mongooseUniqueSlugs.enhanceSchema(mediaItemSchema);
 
 4. Get your model
 
-    var MediaItem = mongoose.model('MediaItem', mediaItemSchema);
+      var MediaItem = mongoose.model('MediaItem', mediaItemSchema);
 
 5. Enhance your model. (This is necessary in order to retry save() operations correctly)
 
-    mongooseUniqueSlugs.enhanceModel(MediaItem);
+      mongooseUniqueSlugs.enhanceModel(MediaItem);
 
 ALSO: note that it is also very important to make sure your indexes have really 
 been applied before you try to do things like inserts! Otherwise you may not get 
