@@ -45,6 +45,9 @@ You can pass options as a second parameter to enhanceSchema(). The available opt
 
 source: if defined, this is the property to be converted to a slug. If not defined, 'title' is assumed.
 
+omit: if defined, this is a regular expression object that matches characters that should be REMOVED from the slug without replacing with a delimeter.  If not defined, the following regular expression is used, removing single or double quotation marks.
+    /[\'\"]+/g;
+
 disallow: if defined, this is a regular expression object that matches characters that should be REMOVED from the slug. If not defined, the following regular expression is used, replacing everythign except letters and numbers with '-' (unless that is overridden also):
 
     /[^\w\d]+/g;
