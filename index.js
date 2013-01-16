@@ -6,6 +6,13 @@ exports.enhanceSchema = function(schema, options)
     options.source = 'title';
   }
 
+  if (options.omit === undefined)
+  {
+    // By default, quotation marks will be omitted from the slug without
+    // replacing with any substitute character.
+    options.omit = /[\'\"]+/g;
+  }
+  
   if (options.disallow === undefined)
   {
     // Everything except letters and digits becomes a dash. All modern browsers are
@@ -34,6 +41,7 @@ exports.enhanceSchema = function(schema, options)
     {
       // Come up with a unique slug, even if the title is not unique
       var originalSlug = self.get(options.source);
+      originalSlug = originalSlug.toLowerCase().replace(options.omit, '');
       originalSlug = originalSlug.toLowerCase().replace(options.disallow, options.substitute);
       // Lop off leading and trailing -
       if (originalSlug.length)
