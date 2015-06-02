@@ -16,7 +16,7 @@
   "version": "0.0.5",
 
   "peerDependencies": {
-    "mongoose": ">=2.5.10 <3.9.0"
+    "mongoose": ">=2.5.10"
   },
 
   "repository" :
