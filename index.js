@@ -67,7 +67,7 @@ exports.enhanceModel = function(model)
       if (err) 
       { 
         // Spots unique index errors relating to the slug field
-        if ((err.code === 11000) && (err.err.indexOf('slug') !== -1))
+        if ((err.code === 11000) && (err.err && err.err.indexOf('slug') !== -1))
         {
           self.slug += (Math.floor(Math.random() * 10)).toString();
           // Necessary because otherwise Mongoose doesn't allow us to retry save(),
