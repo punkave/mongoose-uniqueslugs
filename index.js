@@ -58,9 +58,16 @@ exports.enhanceModel = function(model)
   // Stash the original 'save' method so we can call it
   model.prototype.saveAfterExtendSlugOnUniqueIndexError = model.prototype.save;
   // Replace 'save' with a wrapper
-  model.prototype.save = function(f)
+  model.prototype.save = function(obj,fn)
   {
     var self = this;
+    var f, o;
+    if(typeof(obj) == "function"){
+      f = obj;
+    } else {
+      f = fn;
+      o = obj;
+    }
     // Our replacement callback
     var extendSlugOnUniqueIndexError = function(err, d)
     {
@@ -83,6 +90,11 @@ exports.enhanceModel = function(model)
       f(err, d);
     };
     // Call the original save method, with our wrapper callback
-    self.saveAfterExtendSlugOnUniqueIndexError(extendSlugOnUniqueIndexError);
+    if(o){
+      self.saveAfterExtendSlugOnUniqueIndexError(o, extendSlugOnUniqueIndexError);
+    } else {
+      self.saveAfterExtendSlugOnUniqueIndexError(extendSlugOnUniqueIndexError);
+    }
   }
 };
+
