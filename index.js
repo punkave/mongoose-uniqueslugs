@@ -82,18 +82,19 @@ exports.enhanceModel = function(model)
           // at least until https://github.com/punkave/mongoose/commit/ea37acc8bd216abec68033fe9e667afa5fd9764c
           // is in the mainstream release
           self.isNew = true;
-          self.save(extendSlugOnUniqueIndexError);
-          return;
+          return self.save(extendSlugOnUniqueIndexError);
         }
       }
       // Not our special case so call the original callback
-      f(err, d);
+      if (typeof(f) === 'function') {
+        f(err, d);
+      }
     };
     // Call the original save method, with our wrapper callback
     if(o){
-      self.saveAfterExtendSlugOnUniqueIndexError(o, extendSlugOnUniqueIndexError);
+      return self.saveAfterExtendSlugOnUniqueIndexError(o, extendSlugOnUniqueIndexError);
     } else {
-      self.saveAfterExtendSlugOnUniqueIndexError(extendSlugOnUniqueIndexError);
+      return self.saveAfterExtendSlugOnUniqueIndexError(extendSlugOnUniqueIndexError);
     }
   }
 };
