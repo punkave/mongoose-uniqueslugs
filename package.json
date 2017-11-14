@@ -13,10 +13,10 @@
 
   "main": "index",
 
-  "version": "0.0.4", 
+  "version": "0.0.7",
 
-  "dependencies": {
-    "mongoose": "2.5.10"
+  "peerDependencies": {
+    "mongoose": ">=2.5.10"
   },
 
   "repository" :

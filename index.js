@@ -58,30 +58,44 @@ exports.enhanceModel = function(model)
   // Stash the original 'save' method so we can call it
   model.prototype.saveAfterExtendSlugOnUniqueIndexError = model.prototype.save;
   // Replace 'save' with a wrapper
-  model.prototype.save = function(f)
+  model.prototype.save = function(obj,fn)
   {
     var self = this;
+    var f, o;
+    if(typeof(obj) == "function"){
+      f = obj;
+    } else {
+      f = fn;
+      o = obj;
+    }
     // Our replacement callback
     var extendSlugOnUniqueIndexError = function(err, d)
     {
       if (err) 
       { 
         // Spots unique index errors relating to the slug field
-        if ((err.code === 11000) && (err.err.indexOf('slug') !== -1))
+        var msg = err.err || err.errmsg;
+        if ((err.code === 11000) && (msg && msg.indexOf('slug') !== -1))
         {
           self.slug += (Math.floor(Math.random() * 10)).toString();
           // Necessary because otherwise Mongoose doesn't allow us to retry save(),
           // at least until https://github.com/punkave/mongoose/commit/ea37acc8bd216abec68033fe9e667afa5fd9764c
           // is in the mainstream release
           self.isNew = true;
-          self.save(extendSlugOnUniqueIndexError);
-          return;
+          return self.save(extendSlugOnUniqueIndexError);
         }
       }
       // Not our special case so call the original callback
-      f(err, d);
+      if (typeof(f) === 'function') {
+        f(err, d);
+      }
     };
     // Call the original save method, with our wrapper callback
-    self.saveAfterExtendSlugOnUniqueIndexError(extendSlugOnUniqueIndexError);
+    if(o){
+      return self.saveAfterExtendSlugOnUniqueIndexError(o, extendSlugOnUniqueIndexError);
+    } else {
+      return self.saveAfterExtendSlugOnUniqueIndexError(extendSlugOnUniqueIndexError);
+    }
   }
 };
+
